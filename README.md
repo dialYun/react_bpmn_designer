@@ -7,7 +7,7 @@
   
   gitee 地址: https://gitee.com/dialYun/react_bpmn_designer.git
   
-### Git 上开源的是基础版本，完整版低代码平台请添加微信好友
+### 二次开发 or 完整版功能请添加微信
   <img src="https://user-images.githubusercontent.com/30621321/218239875-b8ace5eb-7de2-4b5a-bf3b-68e603be9117.png" alt="InfiniteGraph Logo" width="270">
   
 ### 使用方式
