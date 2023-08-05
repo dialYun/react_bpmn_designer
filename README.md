@@ -5,14 +5,14 @@
   ·
   <a href="https://github.com/dialYun/react_bpmn_designer/issues">🐛报告 Bug</a>
   ·
-  Star 加群后续更新不存过
+  Star 加群后续版本更新不错过
 </p>
 
 ## 项目简介
 
-一个基于 `Bpmn.js`，`React 18` 和 `Ant Design` 开发的 BPMN 2.0 流程设计器（网页版）。
+一个基于 `Bpmn.js`，`React` 和 `Ant Design` 开发的 BPMN 2.0 流程设计器（网页版）。
 
-此项目支持 flowable 流程引擎，并提供了常见贴合实际业务的功能。
+此项目支持 Flowable 流程引擎，并提供了常见的贴合实际业务的功能。
 
 
 ## 安装和使用
