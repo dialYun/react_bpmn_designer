@@ -1,15 +1,67 @@
-### 项目简介
-  此项目是基于 `React`、`BpmnJs`、 `Antd` 开发的网页版流程设计器。
-  
-  已经在生产环境中使用，请放心食用 0.0
-  
-  在线 Demo 访问: http://flowweb.cn:1577/
-  
-  gitee 地址: https://gitee.com/dialYun/react_bpmn_designer.git
-  
-### 二次开发 or 完整版功能请添加微信
-  <img src="https://user-images.githubusercontent.com/30621321/218239875-b8ace5eb-7de2-4b5a-bf3b-68e603be9117.png" alt="InfiniteGraph Logo" width="270">
-  
-### 使用方式
-    安装: npm install
-    运行: npm run start
+<h1 align="center">React_Bpmn_Designer</h1>
+
+<p align="center">
+  <a href="http://design.flowweb.cn/">💻在线演示</a>
+  ·
+  <a href="https://github.com/dialYun/react_bpmn_designer/issues">🐛报告 Bug</a>
+  ·
+  Star 加群后续更新不存过
+</p>
+
+## 项目简介
+
+一个基于 `Bpmn.js`，`React 18` 和 `Ant Design` 开发的 BPMN 2.0 流程设计器（网页版）。
+
+此项目支持 flowable 流程引擎，并提供了常见贴合实际业务的功能。
+
+
+## 安装和使用
+
+```bash
+# 克隆仓库
+git clone https://github.com/dialYun/react_bpmn_designer
+
+# 安装依赖
+npm install
+
+# 启动项目
+npm start
+```
+
+## 可用功能
+
+### 1. 属性面板
+
+- [x] 基础信息
+- [x] 启动权限
+- [x] 人员组合选择器
+- [x] 表单设置
+- [x] 按钮配置
+- [x] 流转条件
+- [x] 执行监听器
+- [x] 任务监听器
+- [x] 会签（并行、串行）
+      
+### 2. 工具栏
+
+- [x] 导入文件
+- [x] 导出文件（bpmn, svg）
+- [x] 元素对其（垂直上中下、水平左中右）
+- [x] 放大与缩放
+- [x] 撤销恢复与重做
+
+### 3. 编辑器
+
+- [x] 自定义 PaletteProvider
+- [x] 自定义 Renderer
+- [x] 自定义 ContextPadProvider
+- [x] 自定义 ElementFactory
+
+
+
+## 技术交流
+qq群: 907718872
+
+## 商业版流程设计器、表单设计器地址
+
+预览：💻 https://formdeep.com/
