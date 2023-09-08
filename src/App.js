@@ -1,5 +1,4 @@
 import React from "react";
-import "antd/dist/antd.css";
 import BpmnDesigner from "./bpmn-designer";
 import { getXmlData } from "./bpmn-designer/services";
 import { Spin } from "antd";

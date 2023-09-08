@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Collapse, Icon } from "antd";
+import React, { useState, useEffect } from "react";
+import { Collapse } from "antd";
 import BaseConfig from "./base-config";
 import ListenerConfig from "./listener-config";
 import FormConfig from "./form-config";
@@ -9,6 +9,7 @@ import AssignConfig from "./assign-config";
 import CountersignConfig from "./countersign-config";
 import TimeConfig from "./time-config";
 import ConditionConfig from "./condition-config";
+import { InfoCircleFilled } from "@ant-design/icons";
 
 const { Panel } = Collapse;
 
@@ -27,10 +28,10 @@ export default function ConfigPanel(props) {
     }
   }, [bpmnElement.businessObject]);
   const header = (title) => (
-    <Fragment>
+    <>
       {title}
-      <Icon type="info-circle" style={{ marginLeft: 3 }} />
-    </Fragment>
+      <InfoCircleFilled />
+    </>
   );
   return (
     <aside className="config-panel">
@@ -38,7 +39,7 @@ export default function ConfigPanel(props) {
         accordion
         ordered={false}
         defaultActiveKey={["1"]}
-        expandIconPosition="right"
+        expandIconPosition="start"
       >
         <Panel header={header("基本设置")} key="1">
           <BaseConfig bpmnInstance={bpmnInstance} />

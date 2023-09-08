@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Fragment } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, Modal } from "antd";
 import ButtonForm from "./ButtonForm";
 import SelectButtonTable from "./SelectButtonTable";
@@ -49,8 +49,9 @@ export default function ButtonConfig(props) {
 
   // 保存监听器
   const handAddModalOk = () => {
-    formRef.current.validateFields((err, values) => {
-      if (!err) {
+    formRef.current
+      .validateFields()
+      .then((values) => {
         const object = bpmnInstance.moddle.create(`flowable:Button`, {
           ...values,
           next: "0",
@@ -66,8 +67,8 @@ export default function ButtonConfig(props) {
         setButtonIndex(-1);
         setRecord({});
         formRef.current.resetFields();
-      }
-    });
+      })
+      .catch((error) => {});
   };
 
   // 把选择的按钮加入列表
@@ -105,7 +106,7 @@ export default function ButtonConfig(props) {
   }
 
   return (
-    <Fragment>
+    <>
       <div className="config-btn">
         <Button
           type="primary"
@@ -129,7 +130,7 @@ export default function ButtonConfig(props) {
       />
       <Modal
         title="选择按钮"
-        visible={selectModalVisible}
+        open={selectModalVisible}
         onOk={handSelectModalOk}
         onCancel={() => setSelectModalVisible(false)}
         destroyOnClose
@@ -141,12 +142,12 @@ export default function ButtonConfig(props) {
       </Modal>
       <Modal
         title="添加按钮"
-        visible={addModalVisible}
+        open={addModalVisible}
         onOk={handAddModalOk}
         onCancel={handAddModalCancel}
       >
-        <ButtonForm ref={formRef} record={record} />
+        <ButtonForm ref={formRef} record={record} key={Math.random() * 10} />
       </Modal>
-    </Fragment>
+    </>
   );
 }

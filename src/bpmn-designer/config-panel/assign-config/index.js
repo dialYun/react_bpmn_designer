@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal } from "antd";
 import SelectAssignTable from "./SelectAssignTable";
 import AssignTable from "./AssignTable";
@@ -125,7 +125,7 @@ export default function AssignConfig(props) {
   }
 
   return (
-    <Fragment>
+    <>
       <div className="config-btn">
         <Button type="primary" onClick={openModal} style={{ width: 80 }}>
           分配人员
@@ -134,7 +134,7 @@ export default function AssignConfig(props) {
       <AssignTable assignList={assignAttr} />
       <Modal
         title="节点人员设置"
-        visible={selectModalVisible}
+        open={selectModalVisible}
         onOk={handSelectModalOk}
         onCancel={() => setSelectModalVisible(false)}
         width={1000}
@@ -145,6 +145,6 @@ export default function AssignConfig(props) {
           setAssignList={setAssignList}
         />
       </Modal>
-    </Fragment>
+    </>
   );
 }

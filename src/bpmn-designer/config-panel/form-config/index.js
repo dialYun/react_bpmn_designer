@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
-import { Radio, Divider, Button, Modal, Icon, Input, Checkbox } from "antd";
+import React, { useState, useEffect, useRef } from "react";
+import { Radio, Divider, Button, Modal, Input, Checkbox } from "antd";
 import { updateElementExtensions } from "../../utils";
 import AddForm from "./AddForm";
 import FormTable from "./FormTable";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 
 /**
  * 表单设置
@@ -78,8 +79,9 @@ export default function FormConfig(props) {
 
   // 保存表单
   const handAddModalOk = () => {
-    formRef.current.validateFields((err, values) => {
-      if (!err) {
+    formRef.current
+      .validateFields()
+      .then((values) => {
         const form = formList.filter((item) => item.id === values.id)[0];
 
         // 更新列表
@@ -104,8 +106,8 @@ export default function FormConfig(props) {
         updateElementExtensions([...property, ...eventListener], bpmnInstance);
 
         setAddModalVisible(false);
-      }
-    });
+      })
+      .catch((error) => {});
   };
 
   // 改变表单字段的可读/可写属性
@@ -170,15 +172,14 @@ export default function FormConfig(props) {
   }
 
   return (
-    <Fragment>
+    <>
       <Radio.Group onChange={changeFormType} value={formType}>
         <Radio value="1">动态表单</Radio>
         <Radio value="2">外置表单</Radio>
       </Radio.Group>
       <Divider />
-
       {formType.toString() === "1" && (
-        <Fragment>
+        <>
           <div className="config-btn">
             <Button
               type="primary"
@@ -206,9 +207,8 @@ export default function FormConfig(props) {
             data={selectForm.id ? [selectForm] : []}
             onChangeProperty={onChangeProperty}
           />
-        </Fragment>
+        </>
       )}
-
       {formType.toString() === "2" && (
         <div className="base-form">
           <div>
@@ -227,10 +227,9 @@ export default function FormConfig(props) {
           </div>
         </div>
       )}
-
       <Modal
         title="选择动态表单"
-        visible={addModalVisible}
+        open={addModalVisible}
         onOk={handAddModalOk}
         onCancel={() => setAddModalVisible(false)}
         destroyOnClose
@@ -243,16 +242,13 @@ export default function FormConfig(props) {
       </Modal>
       <Modal
         title="提示"
-        visible={deleteModalVisible}
+        open={deleteModalVisible}
         onOk={handDeleteModalOk}
         onCancel={() => setDeleteModalVisible(false)}
       >
-        <Icon
-          type="exclamation-circle"
-          style={{ color: "#e6a23c", transform: "scale(1.3)", marginRight: 10 }}
-        />
+        <ExclamationCircleFilled />
         确认删除动态表单吗？
       </Modal>
-    </Fragment>
+    </>
   );
 }

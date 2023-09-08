@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { Radio, Divider, Button, Modal, Input } from "antd";
 import { updateElementExtensions } from "../../utils";
 import FieldTable from "./FieldTable";
@@ -75,24 +75,22 @@ export default function ConditionConfig(props) {
   }
 
   return (
-    <Fragment>
+    <>
       <Radio.Group onChange={(e) => setType(e.target.value)} value={type}>
         <Radio value={0}>表单字段</Radio>
         <Radio value={1}>流程表达式</Radio>
       </Radio.Group>
       <Divider />
-
       {type === 0 && (
-        <Fragment>
+        <>
           <div className="config-btn">
             <Button type="primary" onClick={addField}>
               添加
             </Button>
           </div>
           <FieldTable fieldList={fieldList} setFieldList={setFieldList} />
-        </Fragment>
+        </>
       )}
-
       {type === 1 && (
         <div className="base-form">
           <div>
@@ -109,14 +107,14 @@ export default function ConditionConfig(props) {
       )}
       <Modal
         title="选择常用流程表达式"
-        visible={selectModalVisible}
+        open={selectModalVisible}
         onOk={handSelectModalOk}
         onCancel={() => setSelectModalVisible(false)}
         destroyOnClose
-        width={650}
+        width={700}
       >
         <ExpressTable setExpress={setExpress} />
       </Modal>
-    </Fragment>
+    </>
   );
 }

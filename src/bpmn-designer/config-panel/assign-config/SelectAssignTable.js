@@ -4,10 +4,9 @@ import { assignInfo } from "../../utils";
 import SelectUser from "../common/select-user";
 import SelectRole from "../common/select-role";
 import SelectPost from "../common/select-post";
-import { getDepartList } from "../../services";
+import { getSelectTreeDepartList } from "../../services";
 
 const { Option } = Select;
-const { TreeNode } = TreeSelect;
 
 /*
  * 选择审核者组件
@@ -19,11 +18,11 @@ export default function SelectAssignTable(props) {
   const [typeName, setTypeName] = useState("");
   const [selectList, setSelectList] = useState([]);
   const [index, setIndex] = useState(-1);
-  const [departData, setDepartData] = useState({});
+  const [departData, setDepartData] = useState([]);
 
   useEffect(() => {
     // 查询部门数据
-    getDepartList().then((data) => {
+    getSelectTreeDepartList().then((data) => {
       setDepartData(data);
     });
   }, []);
@@ -81,7 +80,7 @@ export default function SelectAssignTable(props) {
     const type = value.substring(0, 4);
     const id = value.substring(4);
     if (type === "com_") {
-      message.warning(`不能选中根节点(${departData.name})`);
+      message.warning(`不能选中根节点(${node})`);
     } else {
       assignList[index].value = id;
       assignList[index].valueName = node[0];
@@ -146,29 +145,15 @@ export default function SelectAssignTable(props) {
         if (type === "depart") {
           // 类型为：部门
           return (
-            <TreeSelect
+             <TreeSelect
               value={rowValue}
               placeholder="请选择"
               treeDefaultExpandAll
               onChange={(value, node) => onChangeDepart(value, node, index)}
               style={{ width: "100%" }}
               dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
-            >
-              <TreeNode
-                title={departData.name}
-                key={"com_" + departData.id}
-                value={"com_" + departData.id}
-              >
-                {departData.children &&
-                  departData.children.map((item) => (
-                    <TreeNode
-                      title={item.name}
-                      key={"off_" + item.id}
-                      value={"off_" + item.id}
-                    />
-                  ))}
-              </TreeNode>
-            </TreeSelect>
+              treeData={departData} // 使用 treeData 属性
+            />
           );
         }
         if (["user", "post", "role"].includes(type)) {
@@ -205,7 +190,7 @@ export default function SelectAssignTable(props) {
     },
   ];
   return (
-    <div>
+    (<div>
       <Button type="primary" style={{ marginBottom: 10 }} onClick={addAssign}>
         添加
       </Button>
@@ -217,7 +202,7 @@ export default function SelectAssignTable(props) {
       />
       <Modal
         title={"选择" + typeName}
-        visible={selectModalVisible}
+        open={selectModalVisible}
         onOk={handSelectModalOk}
         onCancel={() => setSelectModalVisible(false)}
         width={1000}
@@ -233,6 +218,6 @@ export default function SelectAssignTable(props) {
           <SelectPost selectPost={selectList} setSelectPost={setSelectList} />
         )}
       </Modal>
-    </div>
+    </div>)
   );
 }

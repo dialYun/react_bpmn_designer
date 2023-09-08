@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Tree, Icon, Input, Divider } from "antd";
-import { getDepartList } from "../../../services";
-
-const { TreeNode } = Tree;
+import { Tree, Input, Divider } from "antd";
+import { getSideTreeDepartList } from "../../../services";
 
 /*
  * 组织树
  */
 export default function OrganizeTree(props) {
   const { setCompanyId, setOfficeId, companyId, officeId } = props;
-  const [dataSource, setDataSource] = useState({});
+  const [dataSource, setDataSource] = useState([]);
   const [selectKey, setSelectKey] = useState([]);
-  const { id, name, children } = dataSource;
 
   //获取数据源
   useEffect(() => {
-    getDepartList().then((data) => {
+    getSideTreeDepartList().then((data) => {
       setDataSource(data);
     });
   }, []);
@@ -43,27 +40,14 @@ export default function OrganizeTree(props) {
     <div className="user-tree">
       <Input placeholder="请输入组织机构过滤" />
       <Divider />
-      <Tree
+     <Tree
         showIcon
         defaultExpandAll
         onSelect={onSelect}
         selectedKeys={selectKey}
-      >
-        <TreeNode
-          icon={<Icon type="apartment" />}
-          title={name}
-          key={"com_" + id}
-        >
-          {children &&
-            children.map((item) => (
-              <TreeNode
-                icon={<Icon type="team" />}
-                title={item.name}
-                key={"off_" + item.id}
-              />
-            ))}
-        </TreeNode>
-      </Tree>
+        treeData={dataSource}
+      />
+
     </div>
   );
 }

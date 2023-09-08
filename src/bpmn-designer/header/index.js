@@ -2,12 +2,14 @@ import React from "react";
 import { Button, Tooltip, message } from "antd";
 import { saveBpmnXml, saveBpmnXmlDraft } from "../services";
 import { initXml } from "../initXml";
+import { FileProtectOutlined, SaveOutlined,PlayCircleFilled, DownOutlined, UndoOutlined, RedoOutlined,DragOutlined,ZoomInOutlined,ZoomOutOutlined  } from "@ant-design/icons";
 
 /**
  * 顶部操作栏
  */
 export default function Header(props) {
   const { bpmnInstance } = props;
+  const { modelId } = props;
   let fileInputRef = null;
   const { modeler } = bpmnInstance;
 
@@ -84,40 +86,35 @@ export default function Header(props) {
     }
   }
 
-  // 保存并发布
-  async function save() {
-    const { xml } = await modeler.saveXML({ format: true });
-    saveBpmnXml({ xml }).then(() => message.success("操作成功"));
-  }
+ // 保存并发布
+ async function save(deployFn) {
+  const { xml } = await modeler.saveXML({ format: true });
+  saveBpmnXml( xml, modelId, modeler, deployFn, "默认" ).then(() => message.success("操作成功"));
+}
 
-  // 保存草稿
-  async function saveDraft() {
-    const { xml } = await modeler.saveXML({ format: true });
-    saveBpmnXmlDraft({ xml }).then(() => message.success("操作成功"));
-  }
 
   const btnGroup = [
     {
-      icon: "save",
+      icon: <SaveOutlined />,
       title: "保存并发布",
-      onClick: save,
+      onClick: () => save(true),
     },
     {
-      icon: "save",
+      icon: <SaveOutlined />,
       title: "保存草稿",
-      onClick: saveDraft,
+      onClick: () => save(false),
     },
   ];
   const iconBtnGroup = [
     {
       type: "primary",
-      icon: "folder-open",
+      icon: <FileProtectOutlined />,
       title: "打开流程文件",
       onClick: () => fileInputRef && fileInputRef.click(),
     },
     {
       type: "primary",
-      icon: "plus-circle",
+      icon: <PlayCircleFilled/>,
       title: "创建新的流程图",
       onClick: () => {
         window.hasChangeName = false
@@ -126,38 +123,38 @@ export default function Header(props) {
     },
     {
       type: "primary",
-      icon: "picture",
+      icon: <DownOutlined />,
       title: "下载流程图",
       onClick: () => downloadFile("svg"),
     },
     {
       type: "primary",
-      icon: "download",
+      icon: <DownOutlined />,
       title: "下载流程文件",
       onClick: () => downloadFile("bpmn"),
     },
     {
-      icon: "undo",
+      icon: <UndoOutlined />,
       title: "撤销",
       onClick: () => modeler.get("commandStack").undo(),
     },
     {
-      icon: "redo",
+      icon: <RedoOutlined />,
       title: "恢复",
       onClick: () => modeler.get("commandStack").redo(),
     },
     {
-      icon: "zoom-in",
+      icon: <ZoomInOutlined />,
       title: "放大",
       onClick: () => modeler.get("zoomScroll").stepZoom(1),
     },
     {
-      icon: "zoom-out",
+      icon: <ZoomOutOutlined />,
       title: "缩小",
       onClick: () => modeler.get("zoomScroll").stepZoom(-1),
     },
     {
-      icon: "drag",
+      icon: <DragOutlined />,
       title: "重置",
       onClick: () => modeler.get("canvas").zoom("fit-viewport", "auto"),
     },

@@ -1,5 +1,5 @@
 import {
-  getDepartList,
+  getSelectTreeDepartList,
   getDepartInfoById,
   getPostList,
   getPostInfoById,
@@ -9,10 +9,8 @@ import {
   getRoleInfoById,
 } from "./services";
 
-// 更新元素扩展属性
 export function updateElementExtensions(extensionList, bpmnInstance) {
   const { modeling, bpmnElement, moddle } = bpmnInstance;
-  // 把原型改回来，因为react的响应式数据会改掉extensionList中元素的原型，导致生成流程图报错
   const list = [];
   for (const item of extensionList) {
     item.__proto__ = moddle.create(item.$type, {}).__proto__;
@@ -31,7 +29,7 @@ export function updateElementExtensions(extensionList, bpmnInstance) {
 export function createListenerObject(options, isTask, bpmnInstances) {
   const listenerObj = Object.create(null);
   listenerObj.event = options.event;
-  isTask && (listenerObj.id = options.id); // 任务监听器特有的 id 字段
+  isTask && (listenerObj.id = options.id);
   switch (options.listenerType) {
     case "expression":
       listenerObj.expression = options.expression;
@@ -62,7 +60,7 @@ export const assignInfo = {
   },
   depart: {
     name: "部门",
-    getList: getDepartList,
+    getList: getSelectTreeDepartList,
     getInfoById: getDepartInfoById,
   },
   role: {
@@ -87,7 +85,6 @@ export const assignInfo = {
   },
 };
 
-// 分页配置
 export const pagination = (total) => ({
   total,
   pageSize: 10,
@@ -98,3 +95,14 @@ export const pagination = (total) => ({
   showQuickJumper: true,
   showTotal: () => `共${total}条`,
 });
+
+
+export function Type_Script_Is(element, type) {
+  var bo = getBusinessObject(element);
+
+  return bo && (typeof bo.$instanceOf === 'function') && bo.$instanceOf(type);
+}
+
+export function getBusinessObject(element) {
+  return (element && element.businessObject) || element;
+}

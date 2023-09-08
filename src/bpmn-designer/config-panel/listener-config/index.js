@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Fragment } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, Modal } from "antd";
 import ListenerForm from "./ListenerForm";
 import SelectListenerTable from "./SelectListenerTable";
@@ -49,8 +49,9 @@ export default function ListenerConfig(props) {
 
   // 保存监听器
   const handAddModalOk = () => {
-    formRef.current.validateFields((err, values) => {
-      if (!err) {
+    formRef.current
+      .validateFields()
+      .then((values) => {
         const listenerObject = createListenerObject(
           values,
           type === "Task",
@@ -70,8 +71,8 @@ export default function ListenerConfig(props) {
         setListenIndex(-1);
         setRecord({});
         formRef.current.resetFields();
-      }
-    });
+      })
+      .catch((error) => {});
   };
 
   // 把选择的监听器加入列表
@@ -113,11 +114,12 @@ export default function ListenerConfig(props) {
   // 取消编辑表单
   function handAddModalCancel() {
     setRecord({});
+    formRef.current.resetFields();
     setAddModalVisible(false);
   }
 
   return (
-    <Fragment>
+    <>
       <div className="config-btn">
         <Button type="primary" onClick={() => setAddModalVisible(true)}>
           添加
@@ -133,15 +135,16 @@ export default function ListenerConfig(props) {
       />
       <Modal
         title={type === "Task" ? "添加任务监听器" : "添加执行监听器"}
-        visible={addModalVisible}
+        open={addModalVisible}
         onOk={handAddModalOk}
         onCancel={handAddModalCancel}
       >
-        <ListenerForm ref={formRef} record={record} />
+        {/* 还有一种方式：手动调用form.setFieldsValue来更新值，而不是依赖useEffect来做这件事 */}
+        <ListenerForm ref={formRef} record={record} key={Math.random() * 10} />
       </Modal>
       <Modal
         title="选择常用监听器"
-        visible={selectModalVisible}
+        open={selectModalVisible}
         onOk={handSelectModalOk}
         onCancel={() => setSelectModalVisible(false)}
         width={800}
@@ -149,6 +152,6 @@ export default function ListenerConfig(props) {
       >
         <SelectListenerTable selectListener={selectListener} type={type} />
       </Modal>
-    </Fragment>
+    </>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Icon, Input } from "antd";
+import { Table, Button, Input } from "antd";
 import { getUserList } from "../../../services";
 import { pagination } from "../../../utils";
+import { UserOutlined } from '@ant-design/icons';
 
 /*
  * 用户列表
@@ -100,7 +101,7 @@ export default function UserTable(props) {
       dataIndex: "image",
       key: "image",
       width: 100,
-      render: () => <Icon type="user" />,
+      render: () => <UserOutlined />,
     },
     {
       title: "登录名",

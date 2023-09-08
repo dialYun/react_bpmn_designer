@@ -254,6 +254,54 @@ function getDepartList() {
   });
 }
 
+// 获取部门列表（侧边选择项）
+function getSideTreeDepartList() {
+  const data = [
+    {
+      title: "xx公司",
+      key: "com_2323",
+      children: [
+        {
+          title: "开发一部",
+          key: "off_2323_1",
+        },
+        {
+          title: "开发二部",
+          key: "off_2323_2",
+        },
+      ],
+    },
+  ];
+
+  return new Promise((resolve) => {
+    resolve(data);
+  });
+}
+
+// 获取部门列表(下拉树)
+function getSelectTreeDepartList() {
+  const data = [
+    {
+      title: "xx公司",
+      value: "com_2323",
+      children: [
+        {
+          title: "开发一部",
+          value: "off_2323_1",
+        },
+        {
+          title: "开发二部",
+          value: "off_2323_2",
+        },
+      ],
+    },
+  ];
+
+  return new Promise((resolve) => {
+    resolve(data);
+  });
+}
+
 // 根据id获取部门信息
 function getDepartInfoById(param) {
   const data = {
@@ -309,7 +357,8 @@ export {
   saveBpmnXml,
   saveBpmnXmlDraft,
   getButtonList,
-  getDepartList,
+  getSelectTreeDepartList,
+  getSideTreeDepartList,
   getUserList,
   getUserInfoById,
   getRoleInfoById,

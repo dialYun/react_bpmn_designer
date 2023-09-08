@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { Select, Radio, InputNumber } from "antd";
 
 const { Option } = Select;
@@ -20,10 +20,8 @@ export default function CountersignConfig(props) {
       bpmnElement.businessObject &&
       bpmnElement.businessObject.loopCharacteristics
     ) {
-      const {
-        isSequential,
-        completionCondition = {},
-      } = bpmnElement.businessObject.loopCharacteristics;
+      const { isSequential, completionCondition = {} } =
+        bpmnElement.businessObject.loopCharacteristics;
       setType(isSequential ? 2 : 1);
       if (completionCondition.body) {
         const { body } = completionCondition;
@@ -114,7 +112,7 @@ export default function CountersignConfig(props) {
         </Select>
       </div>
       {type !== 0 && (
-        <Fragment>
+        <>
           <div>
             <span style={{ marginLeft: -15 }}>完成条件</span>
             <Radio.Group
@@ -138,7 +136,7 @@ export default function CountersignConfig(props) {
             />
             <span style={{ marginLeft: -68 }}>%</span>
           </div>
-        </Fragment>
+        </>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Radio, Modal } from "antd";
 import SelectUser from "../common/select-user";
 import SelectRole from "../common/select-role";
@@ -21,10 +21,8 @@ export default function AuthorityConfig(props) {
   // 读取已有配置
   useEffect(() => {
     if (bpmnElement.businessObject) {
-      const {
-        candidateStarterGroups = "",
-        candidateStarterUsers = "",
-      } = bpmnElement.businessObject;
+      const { candidateStarterGroups = "", candidateStarterUsers = "" } =
+        bpmnElement.businessObject;
       updateUserInfo(candidateStarterUsers);
       updateRoleInfo(candidateStarterGroups);
 
@@ -119,7 +117,7 @@ export default function AuthorityConfig(props) {
   }
 
   return (
-    <Fragment>
+    <>
       <div className="base-form">
         <div>
           <span>允许启动</span>
@@ -133,7 +131,7 @@ export default function AuthorityConfig(props) {
           </Radio.Group>
         </div>
         {authorityType === "assign" && (
-          <Fragment>
+          <>
             <div>
               <span>添加用户</span>
               <Input.Search
@@ -154,13 +152,13 @@ export default function AuthorityConfig(props) {
                 value={showName(role)}
               />
             </div>
-          </Fragment>
+          </>
         )}
       </div>
       <Modal
         title="选择用户"
         width={1000}
-        visible={selectUserVisible}
+        open={selectUserVisible}
         onOk={selectUserModalOk}
         onCancel={() => setSelectUserVisible(false)}
         bodyStyle={{ padding: 10 }}
@@ -171,7 +169,7 @@ export default function AuthorityConfig(props) {
       <Modal
         title="选择角色"
         width={788}
-        visible={selectRoleVisible}
+        open={selectRoleVisible}
         onOk={selectRoleModalOk}
         onCancel={() => setSelectRoleVisible(false)}
         bodyStyle={{ padding: 10 }}
@@ -179,6 +177,6 @@ export default function AuthorityConfig(props) {
       >
         <SelectRole setSelectRole={setSelectRole} selectRole={selectRole} />
       </Modal>
-    </Fragment>
+    </>
   );
 }

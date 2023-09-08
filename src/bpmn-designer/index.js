@@ -20,7 +20,7 @@ import Header from "./header";
 import ConfigPanel from "./config-panel";
 
 export default function BpmnDesigner(props) {
-  const { xml, type } = props;
+  const { xml, type, modelId } = props;
   const [bpmnInstance, setBpmnInstance] = useState({});
   const translate = customTranslate(translationsCN);
 
@@ -102,7 +102,7 @@ export default function BpmnDesigner(props) {
   return (
     <div className="bpmn-designer">
       <div>
-        <Header bpmnInstance={bpmnInstance} />
+        <Header bpmnInstance={bpmnInstance} modelId={modelId}/>
         <div id="flowCanvas" className="flow-canvas"></div>
       </div>
       <ConfigPanel bpmnInstance={bpmnInstance} />
