@@ -7,17 +7,13 @@
     "start": "webpack serve --mode development",
     "build": "webpack --config webpack.config.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xiaoxuliu123/bpmn-react.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/xiaoxuliu123/bpmn-react/issues"
-  },
-  "homepage": "https://github.com/xiaoxuliu123/bpmn-react#readme",
+  "keywords": [
+    "bpmn",
+    "bpmnjs",
+    "bpmn-js",
+    "低代码",
+    "流程设计器"
+  ],
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/plugin-proposal-class-properties": "^7.18.6",

@@ -46,7 +46,7 @@ export default function ExpressTable(props) {
 
   // 监听选择行
   const onSelectChange = (selectedRowKeys, row) => {
-    setExpress(row[0].expression);
+    setExpress(row[0].express);
   };
 
   const rowSelection = {
